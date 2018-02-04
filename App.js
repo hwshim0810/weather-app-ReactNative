@@ -10,8 +10,9 @@ export default class App extends Component {
   state = {
     isLoaded: false,
     error: null,
+    areaName: null,
     temperature: null,
-    name: null
+    weatherName: null
   };
 
   componentDidMount() {
@@ -31,21 +32,23 @@ export default class App extends Component {
     fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&APPID=${API_KEY}`)
     .then(response => response.json())
     .then(json => {
+      console.log(json);
       this.setState({
           temperature: json.main.temp,
-          name: json.weather[0].main,
+          areaName: json.name,
+          weatherName: json.weather[0].main,
           isLoaded: true
       });
     });
   }
   
   render() {
-    const { isLoaded, error } = this.state;  // equals: const isLoaded = this.state.isLoaded;
+    const { isLoaded, error, areaName, temperature, weatherName } = this.state;  // equals: const isLoaded = this.state.isLoaded;
     return (
       <View style={styles.container}>
         <StatusBar hidden={true} />
         {isLoaded ? (
-            <Weather />
+            <Weather areaName={areaName} weatherName={weatherName} temp={Math.ceil(temperature - 273.15)} />
           ) : (
             <View style={styles.loading}>
               <Text style={styles.loadingText}>Now Loading...</Text>
