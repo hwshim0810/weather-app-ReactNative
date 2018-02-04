@@ -1,0 +1,50 @@
+{
+    "Rain": {
+        "colors": ["#c2d7f9", "#6ba0f4"],
+        "title": "It's Raining",
+        "subtitle": "More info look outside",
+        "icon": "weather-rainy"
+    },
+    "Clear": {
+        "colors": ["#FEF253", "#FF7300"],
+        "title": "Yeah..Sunny",
+        "subtitle": "Get out!!!",
+        "icon": "weather-sunny"
+    },
+    "Thunderstorm": {
+        "colors": ["#99a8a7", "#011b30"],
+        "title": "Thunderstorm in the house",
+        "subtitle": "Really?",
+        "icon": "weather-lightning"
+    },
+    "Clouds": {
+        "colors": ["#D7D2CC", "#304352"],
+        "title": "So Clouds",
+        "subtitle": "I don't want go outside",
+        "icon": "weather-cloudy"
+    },
+    "Snow": {
+        "colors": ["#ccd4ff", "#ffe0e0"],
+        "title": "..Snow",
+        "subtitle": "Winter is comming...",
+        "icon": "weather-snowy"
+    },
+    "Drizzle": {
+        "colors": ["#e5e5e5", "#66A6FF"],
+        "title": "Drizzle",
+        "subtitle": "ddddddddrrrrriiiiizzz..",
+        "icon": "weather-windy-variant"
+    },
+    "Haze": {
+        "colors": ["#c0c5db", "#a5a5a5"],
+        "title": "Haze",
+        "subtitle": "That haze???",
+        "icon": "weather-fog"
+    },
+    "Mist": {
+        "colors": ["#a5c7e5", "#54738e"],
+        "title": "Mist",
+        "subtitle": "Who's there?",
+        "icon": "weather-fog"
+    }
+}
