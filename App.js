@@ -1,17 +1,58 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, StatusBar } from 'react-native';
+
+import Config from './config.json';
+import Weather from './Weather';
+
+const API_KEY = Config.API_KEY;
 
 export default class App extends Component {
   state = {
-    isLoaded: false
+    isLoaded: false,
+    error: null,
+    areaName: null,
+    temperature: null,
+    weatherName: null
+  };
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        let coords = position.coords;
+        this._getWeather(coords.latitude, coords.longitude)
+    },
+    error => {
+      this.setState({
+        error: error
+      })
+    });
   }
+
+  _getWeather = (lat, long) => {
+    fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&APPID=${API_KEY}`)
+    .then(response => response.json())
+    .then(json => {
+      console.log(json);
+      this.setState({
+          temperature: json.main.temp,
+          areaName: json.name,
+          weatherName: json.weather[0].main,
+          isLoaded: true
+      });
+    });
+  }
+  
   render() {
-    const { isLoaded } = this.state;  // equals: const isLoaded = this.state.isLoaded;
+    const { isLoaded, error, areaName, temperature, weatherName } = this.state;  // equals: const isLoaded = this.state.isLoaded;
     return (
       <View style={styles.container}>
-        {isLoaded ? null : (
+        <StatusBar hidden={true} />
+        {isLoaded ? (
+            <Weather areaName={areaName} weatherName={weatherName} temp={Math.ceil(temperature - 273.15)} />
+          ) : (
             <View style={styles.loading}>
               <Text style={styles.loadingText}>Now Loading...</Text>
+              {error ? <Text style={styles.errorText}>{error}</Text> : null}
             </View>
           )}
       </View>
@@ -23,6 +64,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff'
+  },
+  errorText: {
+    color: "red",
+    backgroundColor: "transparent",
+    marginBottom: 40
   },
   loading: {
     flex:1,
